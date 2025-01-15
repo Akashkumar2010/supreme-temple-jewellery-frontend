@@ -1,0 +1,81 @@
+/* AboutUs.css */
+
+/* Container Styles */
+.about-container {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title Section */
+  .about-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #3a6073;
+    margin-bottom: 1rem;
+  }
+  
+  .about-divider {
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    height: 4px;
+    width: 50px;
+    background: linear-gradient(90deg, #3a7bd5, #3a6073);
+    border-radius: 2px;
+  }
+  
+  /* Content Section */
+  .about-text {
+    text-align: justify;
+    line-height: 1.8;
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  .about-text p {
+    margin-bottom: 1rem;
+  }
+  
+  /* Section Titles */
+  .about-section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3a7bd5;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Box Highlight */
+  .about-highlight-box {
+    background: #3a6073;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 2rem 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .about-title {
+      font-size: 2rem;
+    }
+  
+    .about-text {
+      font-size: 0.9rem;
+    }
+  
+    .about-section-title {
+      font-size: 1.3rem;
+    }
+  }
+  
