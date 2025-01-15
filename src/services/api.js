@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL + '/endpoint';
+const API_URL = process.env.REACT_APP_API_URL;
 
 // Utility function to handle errors
 const handleError = (error, message) => {
