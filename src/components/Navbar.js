@@ -27,6 +27,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { AuthContext } from '../context/AuthContext';
 import { CurrencyContext } from '../context/CurrencyContext';
+import './Navbar.css';
 
 // Import the logo image
 import DesktopLogo from '../assets/SUPREME TEMPLE JEWELRY over.png'; // Replace with your desktop logo path
