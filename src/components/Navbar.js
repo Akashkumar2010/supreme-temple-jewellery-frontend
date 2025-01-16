@@ -31,7 +31,7 @@ import './Navbar.css';
 
 // Import the logo image
 import DesktopLogo from '../assets/SUPREME TEMPLE JEWELRY over.png'; // Replace with your desktop logo path
-import MobileLogo from '../assets/logo small.png'; // Replace with your mobile logo path
+//import MobileLogo from '../assets/logo small.png'; // Replace with your mobile logo path
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -260,7 +260,7 @@ function Navbar() {
             {/* Mobile Logo */}
             <Link to="/" style={{ display: 'flex' }}>
               <img
-                src={MobileLogo}
+                src={DesktopLogo}
                 alt="Mobile Logo"
                 style={{
                   height: '50px',
