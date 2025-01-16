@@ -282,7 +282,7 @@ function Navbar() {
                   height: '70px', // Adjust size for desktop
                   width: 'auto',
                   '@media (min-width: 768px)': {
-                    display: 'block', // Show on desktop
+                    display: 'none', // Show on desktop
                   },
                 }}
               />
