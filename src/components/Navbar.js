@@ -27,11 +27,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { AuthContext } from '../context/AuthContext';
 import { CurrencyContext } from '../context/CurrencyContext';
-import './Navbar.css';
 
 // Import the logo image
-import DesktopLogo from '../assets/SUPREME TEMPLE JEWELRY over.png'; // Replace with your desktop logo path
-//import MobileLogo from '../assets/logo small.png'; // Replace with your mobile logo path
+import LogoImage from '../assets/SUPREME TEMPLE JEWELRY over.png';
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -257,31 +255,14 @@ function Navbar() {
               alignItems: 'center',
             }}
           >
-            {/* Mobile Logo */}
-            <Link to="/" style={{ display: 'flex' }}>
+            <Link to="/">
               <img
-                src={DesktopLogo}
-                alt="Mobile Logo"
+                src={LogoImage}
+                alt="Supreme Temple Jewelry Logo"
                 style={{
-                  height: '50px',
+                  height: '70px', // Adjust height as needed
                   width: 'auto',
-                  display: 'block',
                 }}
-                className="mobile-logo"
-              />
-            </Link>
-
-            {/* Desktop Logo */}
-            <Link to="/" style={{ display: 'flex' }}>
-              <img
-                src={DesktopLogo}
-                alt="Desktop Logo"
-                style={{
-                  height: '90px',
-                  width: 'auto',
-                  display: 'none',
-                }}
-                className="desktop-logo"
               />
             </Link>
           </Box>
@@ -489,3 +470,4 @@ function Navbar() {
 }
 
 export default Navbar;
+//this is the existing code of the navbar.js i want a separate logo for the mobile view
