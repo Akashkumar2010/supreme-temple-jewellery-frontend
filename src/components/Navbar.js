@@ -250,41 +250,41 @@ function Navbar() {
 
           {/* Brand/Logo */}
           <Box
-  sx={{
-    flexGrow: 1,
-    display: 'flex',
-    justifyContent: { xs: 'center', md: 'flex-start' },
-    alignItems: 'center',
-  }}
->
-  {/* Mobile Logo */}
-  <Link to="/" style={{ display: 'flex' }}>
-    <img
-      src={MobileLogo}
-      alt="Mobile Logo"
-      style={{
-        height: '50px',
-        width: 'auto',
-        display: 'block',
-      }}
-      className="mobile-logo"
-    />
-  </Link>
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              justifyContent: { xs: 'center', md: 'flex-start' },
+              alignItems: 'center',
+            }}
+          >
+            {/* Mobile Logo */}
+            <Link to="/" style={{ display: 'flex' }}>
+              <img
+                src={MobileLogo}
+                alt="Mobile Logo"
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  display: 'block',
+                }}
+                className="mobile-logo"
+              />
+            </Link>
 
-  {/* Desktop Logo */}
-  <Link to="/" style={{ display: 'flex' }}>
-    <img
-      src={DesktopLogo}
-      alt="Desktop Logo"
-      style={{
-        height: '70px',
-        width: 'auto',
-        display: 'none',
-      }}
-      className="desktop-logo"
-    />
-  </Link>
-</Box>
+            {/* Desktop Logo */}
+            <Link to="/" style={{ display: 'flex' }}>
+              <img
+                src={DesktopLogo}
+                alt="Desktop Logo"
+                style={{
+                  height: '70px',
+                  width: 'auto',
+                  display: 'none',
+                }}
+                className="desktop-logo"
+              />
+            </Link>
+          </Box>
 
           {/* Desktop: Navigation Links */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2.5 }}>
