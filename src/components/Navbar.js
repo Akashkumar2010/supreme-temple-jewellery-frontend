@@ -256,26 +256,35 @@ function Navbar() {
               alignItems: 'center',
             }}
           >
-            <Link to="/">
+            {/* Mobile Logo */}
+            <Link to="/" style={{ display: 'flex' }}>
               <img
-                src={DesktopLogo}
-                alt="Desktop Logo"
-                style={{
-                  height: '70px',
-                  width: 'auto',
-                  display: 'none', // Hide desktop logo on mobile
-                }}
-                className="desktop-logo"
-              />
-              <img
-                src={MobileLogo}
+                src={MobileLogo} // Use mobile logo
                 alt="Mobile Logo"
                 style={{
-                  height: '50px',
+                  display: 'block',
+                  height: '50px', // Adjust size for mobile
                   width: 'auto',
-                  display: 'block', // Show mobile logo on mobile
+                  '@media (min-width: 768px)': {
+                    display: 'none', // Hide on desktop
+                  },
                 }}
-                className="mobile-logo"
+              />
+            </Link>
+
+            {/* Desktop Logo */}
+            <Link to="/" style={{ display: 'flex' }}>
+              <img
+                src={DesktopLogo} // Use desktop logo
+                alt="Desktop Logo"
+                style={{
+                  display: 'none',
+                  height: '70px', // Adjust size for desktop
+                  width: 'auto',
+                  '@media (min-width: 768px)': {
+                    display: 'block', // Show on desktop
+                  },
+                }}
               />
             </Link>
           </Box>
