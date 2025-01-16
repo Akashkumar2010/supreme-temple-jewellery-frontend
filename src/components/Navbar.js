@@ -250,45 +250,41 @@ function Navbar() {
 
           {/* Brand/Logo */}
           <Box
-            sx={{
-              flexGrow: 1,
-              display: 'flex',
-              justifyContent: { xs: 'center', md: 'flex-start' },
-              alignItems: 'center',
-            }}
-          >
-            {/* Mobile Logo */}
-            <Link to="/" style={{ display: 'flex' }}>
-              <img
-                src={MobileLogo} // Use mobile logo
-                alt="Mobile Logo"
-                style={{
-                  display: 'block',
-                  height: '50px', // Adjust size for mobile
-                  width: 'auto',
-                  '@media (min-width: 768px)': {
-                    display: 'none', // Hide on desktop
-                  },
-                }}
-              />
-            </Link>
+  sx={{
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: { xs: 'center', md: 'flex-start' },
+    alignItems: 'center',
+  }}
+>
+  {/* Mobile Logo */}
+  <Link to="/" style={{ display: 'flex' }}>
+    <img
+      src={MobileLogo}
+      alt="Mobile Logo"
+      style={{
+        height: '50px',
+        width: 'auto',
+        display: 'block',
+      }}
+      className="mobile-logo"
+    />
+  </Link>
 
-            {/* Desktop Logo */}
-            <Link to="/" style={{ display: 'flex' }}>
-              <img
-                src={DesktopLogo} // Use desktop logo
-                alt="Desktop Logo"
-                style={{
-                  display: 'none',
-                  height: '70px', // Adjust size for desktop
-                  width: 'auto',
-                  '@media (min-width: 768px)': {
-                    display: 'none', // Show on desktop
-                  },
-                }}
-              />
-            </Link>
-          </Box>
+  {/* Desktop Logo */}
+  <Link to="/" style={{ display: 'flex' }}>
+    <img
+      src={DesktopLogo}
+      alt="Desktop Logo"
+      style={{
+        height: '70px',
+        width: 'auto',
+        display: 'none',
+      }}
+      className="desktop-logo"
+    />
+  </Link>
+</Box>
 
           {/* Desktop: Navigation Links */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2.5 }}>
