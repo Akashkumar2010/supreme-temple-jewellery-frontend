@@ -277,7 +277,7 @@ function Navbar() {
                 src={DesktopLogo}
                 alt="Desktop Logo"
                 style={{
-                  height: '70px',
+                  height: '90px',
                   width: 'auto',
                   display: 'none',
                 }}
