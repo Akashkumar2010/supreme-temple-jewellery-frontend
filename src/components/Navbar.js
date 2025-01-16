@@ -29,7 +29,8 @@ import { AuthContext } from '../context/AuthContext';
 import { CurrencyContext } from '../context/CurrencyContext';
 
 // Import the logo image
-import LogoImage from '../assets/SUPREME TEMPLE JEWELRY over.png';
+import DesktopLogo from '../assets/SUPREME TEMPLE JEWELRY over.png'; // Replace with your desktop logo path
+import MobileLogo from '../assets/logo small.png'; // Replace with your mobile logo path
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -257,12 +258,24 @@ function Navbar() {
           >
             <Link to="/">
               <img
-                src={LogoImage}
-                alt="Supreme Temple Jewelry Logo"
+                src={DesktopLogo}
+                alt="Desktop Logo"
                 style={{
-                  height: '70px', // Adjust height as needed
+                  height: '70px',
                   width: 'auto',
+                  display: 'none', // Hide desktop logo on mobile
                 }}
+                className="desktop-logo"
+              />
+              <img
+                src={MobileLogo}
+                alt="Mobile Logo"
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  display: 'block', // Show mobile logo on mobile
+                }}
+                className="mobile-logo"
               />
             </Link>
           </Box>
