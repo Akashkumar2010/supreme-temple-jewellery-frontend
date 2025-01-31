@@ -18,6 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
+import ColourfulText from "@/components/ui/colourful-text";
 
 // Import slick-carousel CSS
 import 'slick-carousel/slick/slick.css';
@@ -245,12 +246,34 @@ function Home() {
           }}
         >
           <Box sx={{ textAlign: 'center', maxWidth: '700px', zIndex: 2 }}>
-            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
-              Welcome to Supreme Temple Jewellery
-            </Typography>
-            <Typography variant="h5" sx={{ mt: 2, mb: 4 }}>
-              Specialists in Dance Costumes & Jewelry Since 1967
-            </Typography>
+          import ColourfulText from "@/components/ui/colourful-text"; // Ensure correct import
+
+<Box sx={{ textAlign: "center", maxWidth: "700px", zIndex: 2 }}>
+  <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2, color: "#fff" }}>
+    Welcome to <ColourfulText text="Supreme Temple Jewellery" />
+  </Typography>
+  <Typography variant="h5" sx={{ mt: 2, mb: 4, color: "#ddd" }}>
+    Specialists in <ColourfulText text="Dance Costumes & Jewelry Since 1967" />
+  </Typography>
+  <Button
+    variant="contained"
+    sx={{
+      mt: 4,
+      background: "linear-gradient(90deg, #061f59, #122b76)", // Deep Blue Gradient
+      color: "#fff",
+      borderRadius: "30px",
+      padding: "10px 30px",
+      textTransform: "capitalize",
+      fontWeight: "bold",
+      "&:hover": {
+        background: "linear-gradient(90deg, #122b76, #061f59)", // Reversed Gradient on Hover
+      },
+    }}
+    onClick={() => navigate("/products")}
+  >
+    Shop Now
+  </Button>
+</Box>
             <Button
               variant="contained"
               sx={{
