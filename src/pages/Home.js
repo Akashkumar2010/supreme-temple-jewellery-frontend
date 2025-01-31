@@ -18,7 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
-import ColourfulText from "@/components/ui/colourful-text";
+import ColourfulText from '@/components/ui/colourful-text';
 
 // Import slick-carousel CSS
 import 'slick-carousel/slick/slick.css';
@@ -245,35 +245,21 @@ function Home() {
             },
           }}
         >
+          {/* 
+            We removed the erroneous 'import' line inside JSX 
+            and merged everything into one Box for clarity.
+          */}
           <Box sx={{ textAlign: 'center', maxWidth: '700px', zIndex: 2 }}>
-          import ColourfulText from "@/components/ui/colourful-text"; // Ensure correct import
-
-<Box sx={{ textAlign: "center", maxWidth: "700px", zIndex: 2 }}>
-  <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2, color: "#fff" }}>
-    Welcome to <ColourfulText text="Supreme Temple Jewellery" />
-  </Typography>
-  <Typography variant="h5" sx={{ mt: 2, mb: 4, color: "#ddd" }}>
-    Specialists in <ColourfulText text="Dance Costumes & Jewelry Since 1967" />
-  </Typography>
-  <Button
-    variant="contained"
-    sx={{
-      mt: 4,
-      background: "linear-gradient(90deg, #061f59, #122b76)", // Deep Blue Gradient
-      color: "#fff",
-      borderRadius: "30px",
-      padding: "10px 30px",
-      textTransform: "capitalize",
-      fontWeight: "bold",
-      "&:hover": {
-        background: "linear-gradient(90deg, #122b76, #061f59)", // Reversed Gradient on Hover
-      },
-    }}
-    onClick={() => navigate("/products")}
-  >
-    Shop Now
-  </Button>
-</Box>
+            <Typography
+              variant="h3"
+              sx={{ fontWeight: 'bold', mb: 2, color: '#fff' }}
+            >
+              Welcome to <ColourfulText text="Supreme Temple Jewellery" />
+            </Typography>
+            <Typography variant="h5" sx={{ mt: 2, mb: 4, color: '#ddd' }}>
+              Specialists in{' '}
+              <ColourfulText text="Dance Costumes & Jewelry Since 1967" />
+            </Typography>
             <Button
               variant="contained"
               sx={{
@@ -286,6 +272,28 @@ function Home() {
                 fontWeight: 'bold',
                 '&:hover': {
                   background: 'linear-gradient(90deg, #122b76, #061f59)', // Reversed Gradient on Hover
+                },
+              }}
+              onClick={() => navigate('/products')}
+            >
+              Shop Now
+            </Button>
+
+            {/* If you truly need two "Shop Now" buttons, you can keep this second one.
+                Otherwise, feel free to remove it. */}
+            <Button
+              variant="contained"
+              sx={{
+                mt: 4,
+                ml: 2, // small left margin so it's not stacked on the first button
+                background: 'linear-gradient(90deg, #061f59, #122b76)',
+                color: '#fff',
+                borderRadius: '30px',
+                padding: '10px 30px',
+                textTransform: 'capitalize',
+                fontWeight: 'bold',
+                '&:hover': {
+                  background: 'linear-gradient(90deg, #122b76, #061f59)',
                 },
               }}
               onClick={() => navigate('/products')}
@@ -343,7 +351,7 @@ function Home() {
             <Button
               variant="contained"
               sx={{
-                background: 'linear-gradient(90deg, #061f59, #122b76)', // Deep Blue Gradient
+                background: 'linear-gradient(90deg, #061f59, #122b76)',
                 color: 'white',
                 borderRadius: '50px',
                 fontWeight: 'bold',
@@ -351,7 +359,7 @@ function Home() {
                 padding: '10px 25px',
                 marginLeft: '10px',
                 '&:hover': {
-                  background: 'linear-gradient(90deg, #122b76, #061f59)', // Reversed Gradient on Hover
+                  background: 'linear-gradient(90deg, #122b76, #061f59)',
                 },
               }}
               onClick={() => {
@@ -438,14 +446,14 @@ function Home() {
                 <Button
                   variant="contained"
                   sx={{
-                    background: 'linear-gradient(90deg, #061f59, #122b76)', // Deep Blue Gradient
+                    background: 'linear-gradient(90deg, #061f59, #122b76)',
                     color: 'white',
                     textTransform: 'capitalize',
                     fontWeight: 'bold',
                     padding: '10px 25px',
                     borderRadius: '30px',
                     '&:hover': {
-                      background: 'linear-gradient(90deg, #122b76, #061f59)', // Reversed Gradient on Hover
+                      background: 'linear-gradient(90deg, #122b76, #061f59)',
                     },
                   }}
                   onClick={() => navigate('/contact')}
@@ -472,7 +480,8 @@ function Home() {
                 >
                   <source src="/videos/my-custom-video.mp4" type="video/mp4" />
                   {/* Fallback text for older browsers */}
-                  Your browser does not support the HTML5 video element.
+                  {/* Use braces to avoid unescaped entity warning */}
+                  {'Your browser does not support the HTML5 video element.'}
                 </video>
               </Grid>
             </Grid>
