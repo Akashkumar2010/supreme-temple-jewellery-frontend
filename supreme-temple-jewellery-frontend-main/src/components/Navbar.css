@@ -1,0 +1,20 @@
+/* Mobile Logo */
+.mobile-logo {
+    display: block;
+  }
+  
+  .desktop-logo {
+    display: none;
+  }
+  
+  /* Media Query for Desktop View */
+  @media (min-width: 768px) {
+    .mobile-logo {
+      display: none;
+    }
+  
+    .desktop-logo {
+      display: block;
+    }
+  }
+  
