@@ -18,7 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
-import ColourfulText from '@/components/ui/colourful-text';
+import { ColourfulText } from '../components/ui/colourful-text';
 
 // Import slick-carousel CSS
 import 'slick-carousel/slick/slick.css';
