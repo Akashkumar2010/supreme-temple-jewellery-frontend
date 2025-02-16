@@ -1,5 +1,3 @@
-// src/components/ComingSoon.js
-
 import React, { useState } from 'react';
 import {
   Box,
@@ -15,6 +13,16 @@ import {
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
+import { styled } from '@mui/system';
+
+// Minimalistic Animations
+const fadeIn = styled('div')({
+  '@keyframes fadeIn': {
+    '0%': { opacity: 0, transform: 'translateY(10px)' },
+    '100%': { opacity: 1, transform: 'translateY(0)' },
+  },
+  animation: 'fadeIn 1.5s ease-in-out',
+});
 
 function ComingSoon() {
   const [email, setEmail] = useState('');
@@ -34,9 +42,7 @@ function ComingSoon() {
     try {
       const response = await fetch('http://localhost:5000/api/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
 
@@ -51,7 +57,6 @@ function ComingSoon() {
         setSnackbarSeverity('error');
       }
     } catch (error) {
-      console.error('Error:', error);
       setSnackbarMsg('Failed to sign up. Please try again later.');
       setSnackbarSeverity('error');
     } finally {
@@ -66,55 +71,73 @@ function ComingSoon() {
   return (
     <Box
       sx={{
-        backgroundColor: '#f0f4f8',
+        backgroundColor: '#FAF9F6',
+        color: '#333',
         padding: { xs: '4rem 1rem', md: '6rem 8rem' },
         textAlign: 'center',
       }}
     >
       {/* Title */}
-      <Typography
-        variant="h3"
-        gutterBottom
-        sx={{ fontWeight: 'bold', color: '#1d2671' }}
-      >
-        Coming Soon: SupremeAI
-      </Typography>
-      {/* Subtitle */}
-      <Typography
-        variant="h6"
-        gutterBottom
-        sx={{ color: '#555', maxWidth: '700px', margin: '0 auto' }}
-      >
-        Empowering Bharathanatyam Dancers and Dance Schools to Design Their
-        Unique Creations with Ease
-      </Typography>
+      <fadeIn>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#C99C33',
+            fontFamily: "'Playfair Display', serif",
+          }}
+        >
+          SupremeAI – Elevate Your Jewelry Designs
+        </Typography>
+
+        {/* Subtitle */}
+        <Typography
+          variant="h6"
+          gutterBottom
+          sx={{
+            color: '#6b4f4f',
+            maxWidth: '700px',
+            margin: '0 auto',
+            fontFamily: "'Poppins', sans-serif",
+          }}
+        >
+          AI-powered jewelry designing at your fingertips. Join our waitlist
+          today!
+        </Typography>
+      </fadeIn>
 
       {/* Visuals Section */}
       <Grid
         container
         spacing={4}
-        sx={{ marginTop: '2rem', marginBottom: '2rem' }}
+        sx={{ marginTop: '2rem', marginBottom: '2rem', alignItems: 'center' }}
       >
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: '1rem', borderRadius: '15px' }}>
+          <Paper elevation={2} sx={{ padding: '1rem', borderRadius: '12px' }}>
             <img
-              src="/assets/coming-soon-image.jpg" // Update the path as per your asset
-              alt="SupremeAI Preview"
-              style={{ width: '100%', borderRadius: '15px' }}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw2fR-ODsZdI2J4Sb3H3yuCFtkxLN4xjXwjg&s"
+              alt="Jewelry AI Preview"
+              style={{
+                width: '100%',
+                borderRadius: '12px',
+                boxShadow: '0px 2px 10px rgba(201, 156, 51, 0.3)',
+              }}
             />
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: '1rem', borderRadius: '15px' }}>
-            <video
+          <Paper elevation={2} sx={{ padding: '1rem', borderRadius: '12px' }}>
+            <iframe
               width="100%"
-              controls
-              style={{ borderRadius: '15px' }}
-              poster="/assets/sai.webp" // Optional poster image
-            >
-              <source src="/assets/coming-soon-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+              height="315"
+              src="https://www.youtube.com/embed/4EdF8LNl4lo?si=F4l6phWLUGsfY5cl"
+              title="Jewelry AI Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{ borderRadius: '12px' }}
+            ></iframe>
           </Paper>
         </Grid>
       </Grid>
@@ -124,7 +147,7 @@ function ComingSoon() {
         component="form"
         onSubmit={handleSignUp}
         sx={{
-          maxWidth: '500px',
+          maxWidth: '450px',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
@@ -147,120 +170,38 @@ function ComingSoon() {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           endIcon={<SendIcon />}
           sx={{
-            backgroundColor: '#1d2671',
+            backgroundColor: '#C99C33',
             color: '#fff',
             borderRadius: '8px',
             textTransform: 'capitalize',
             fontWeight: 'bold',
             '&:hover': {
-              backgroundColor: '#122b76',
+              backgroundColor: '#B3882F',
             },
             width: { xs: '100%', sm: 'auto' },
           }}
         >
-          Sign Up
+          Join Waitlist
         </Button>
       </Box>
-
-      {/* Call-to-Action Buttons */}
-      <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 4 }}>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{
-            borderColor: '#1d2671',
-            color: '#1d2671',
-            borderRadius: '20px',
-            textTransform: 'capitalize',
-            fontWeight: 'bold',
-            padding: '10px 20px',
-            '&:hover': {
-              backgroundColor: '#1d2671',
-              color: '#fff',
-            },
-          }}
-          onClick={() => {
-            // Implement "Learn More" navigation or modal
-            alert('Learn More functionality to be implemented.');
-          }}
-        >
-          Learn More
-        </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{
-            borderColor: '#1d2671',
-            color: '#1d2671',
-            borderRadius: '20px',
-            textTransform: 'capitalize',
-            fontWeight: 'bold',
-            padding: '10px 20px',
-            '&:hover': {
-              backgroundColor: '#1d2671',
-              color: '#fff',
-            },
-          }}
-          onClick={() => {
-            // Implement social media sharing functionality
-            alert('Share on Social Media functionality to be implemented.');
-          }}
-        >
-          Share on Social Media
-        </Button>
-      </Stack>
 
       {/* Social Media Icons */}
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="body1" sx={{ mb: 2, color: '#555' }}>
-          Follow us on:
-        </Typography>
-        <Stack direction="row" spacing={2} justifyContent="center">
-          <IconButton
-            component="a"
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ color: '#3b5998' }}
-            aria-label="Facebook"
-          >
-            <Facebook />
-          </IconButton>
-          <IconButton
-            component="a"
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ color: '#1DA1F2' }}
-            aria-label="Twitter"
-          >
-            <Twitter />
-          </IconButton>
-          <IconButton
-            component="a"
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ color: '#C13584' }}
-            aria-label="Instagram"
-          >
-            <Instagram />
-          </IconButton>
-          <IconButton
-            component="a"
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ color: '#0e76a8' }}
-            aria-label="LinkedIn"
-          >
-            <LinkedIn />
-          </IconButton>
-        </Stack>
-      </Box>
+      <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 4 }}>
+        <IconButton href="https://facebook.com" sx={{ color: '#3b5998' }}>
+          <Facebook />
+        </IconButton>
+        <IconButton href="https://twitter.com" sx={{ color: '#1DA1F2' }}>
+          <Twitter />
+        </IconButton>
+        <IconButton href="https://instagram.com" sx={{ color: '#C13584' }}>
+          <Instagram />
+        </IconButton>
+        <IconButton href="https://linkedin.com" sx={{ color: '#0e76a8' }}>
+          <LinkedIn />
+        </IconButton>
+      </Stack>
 
       {/* Snackbar for Feedback */}
       <Snackbar

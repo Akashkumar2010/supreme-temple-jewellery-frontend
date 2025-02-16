@@ -1,5 +1,3 @@
-// src/pages/Home.js
-
 import './Home.css';
 import React from 'react';
 import {
@@ -18,14 +16,54 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
-import { ColourfulText } from '../components/ui/colourful-text';
+import { motion } from 'framer-motion';
 
-// Import slick-carousel CSS
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// Import the ComingSoon component
 import ComingSoon from '../components/ComingSoonTemp.js';
+
+/* ==================== Framer Motion Variants ==================== */
+const heroContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { delayChildren: 0.3, staggerChildren: 0.2 },
+  },
+};
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: 'easeOut' },
+  },
+};
+
+const sectionContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const sectionItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+// Subtle hover effect for cards
+const tiltHover = {
+  hover: {
+    scale: 1.02,
+    transition: { type: 'spring', stiffness: 150 },
+  },
+};
 
 function Home() {
   const navigate = useNavigate();
@@ -200,7 +238,6 @@ function Home() {
     ],
   };
 
-  // Handlers
   const handleCategoryClick = link => {
     navigate(link);
   };
@@ -220,19 +257,34 @@ function Home() {
       }}
     >
       <div className="home-page">
-        {/* --- Hero Section --- */}
+        {/** ========================== Hero Section START ========================== **/}
         <Box
+          component={motion.div}
+          variants={heroContainerVariants}
+          initial="hidden"
+          animate="visible"
           sx={{
             position: 'relative',
-            height: '650px',
+            height: { xs: '500px', md: '800px' },
             color: '#fff',
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: 'column',
             justifyContent: 'center',
-            background:
-              'url("https://www.indiannatya.com/my_contentz/uploads/2022/11/banner6.jpg") no-repeat center center',
+            textAlign: 'center',
+            background: `url("https://www.indiannatya.com/my_contentz/uploads/2022/11/banner6.jpg") 
+                         no-repeat center center`,
             backgroundSize: 'cover',
-            // Optional: Add a dark overlay for better text visibility
+            backgroundAttachment: {
+              xs: 'scroll',
+              md: 'fixed',
+            },
+            // We'll still do a diagonal clip on bottom:
+            clipPath: {
+              xs: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
+              md: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
+            },
+            overflow: 'hidden',
+            // Dark overlay
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -240,419 +292,668 @@ function Home() {
               left: 0,
               width: '100%',
               height: '100%',
-              background: 'rgba(0, 0, 0, 0.5)',
+              background:
+                'linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0.5))',
               zIndex: 1,
+            },
+            // Wave at the bottom using an absolutely positioned SVG
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              height: '120px',
+              background: 'url("/wave-bottom.svg") no-repeat bottom center',
+              backgroundSize: 'cover',
+              zIndex: 2,
+              // Make sure wave is on top of overlay but behind hero text
             },
           }}
         >
-          {/* 
-            We removed the erroneous 'import' line inside JSX 
-            and merged everything into one Box for clarity.
-          */}
-          <Box sx={{ textAlign: 'center', maxWidth: '700px', zIndex: 2 }}>
-            <Typography
-              variant="h3"
-              sx={{ fontWeight: 'bold', mb: 2, color: '#fff' }}
-            >
-              Welcome to <ColourfulText text="Supreme Temple Jewellery" />
-            </Typography>
-            <Typography variant="h5" sx={{ mt: 2, mb: 4, color: '#ddd' }}>
-              Specialists in{' '}
-              <ColourfulText text="Dance Costumes & Jewelry Since 1967" />
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                mt: 4,
-                background: 'linear-gradient(90deg, #061f59, #122b76)', // Deep Blue Gradient
-                color: '#fff',
-                borderRadius: '30px',
-                padding: '10px 30px',
-                textTransform: 'capitalize',
-                fontWeight: 'bold',
-                '&:hover': {
-                  background: 'linear-gradient(90deg, #122b76, #061f59)', // Reversed Gradient on Hover
-                },
-              }}
-              onClick={() => navigate('/products')}
-            >
-              Shop Now
-            </Button>
-
-            {/* If you truly need two "Shop Now" buttons, you can keep this second one.
-                Otherwise, feel free to remove it. */}
-            <Button
-              variant="contained"
-              sx={{
-                mt: 4,
-                ml: 2, // small left margin so it's not stacked on the first button
-                background: 'linear-gradient(90deg, #061f59, #122b76)',
-                color: '#fff',
-                borderRadius: '30px',
-                padding: '10px 30px',
-                textTransform: 'capitalize',
-                fontWeight: 'bold',
-                '&:hover': {
-                  background: 'linear-gradient(90deg, #122b76, #061f59)',
-                },
-              }}
-              onClick={() => navigate('/products')}
-            >
-              Shop Now
-            </Button>
-          </Box>
-
-          {/* --- Transparent Search Bar at the bottom of hero --- */}
+          {/* Hero Content */}
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              position: 'absolute',
-              bottom: '40px',
-              width: '90%',
-              maxWidth: '800px',
-              background: 'rgba(255, 255, 255, 0.9)',
-              borderRadius: '50px',
-              boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-              overflow: 'hidden',
-              padding: '5px',
-              justifyContent: 'center',
-              zIndex: 2,
+              position: 'relative',
+              zIndex: 3, // above overlay & wave
+              maxWidth: '900px',
+              mx: 'auto',
+              px: 2,
+              py: { xs: 2, md: 6 },
             }}
           >
-            <TextField
-              placeholder="Search Bharathanatyam jewellery..."
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: '#061f59' }} />
-                  </InputAdornment>
-                ),
-                style: {
-                  backgroundColor: 'transparent',
-                  borderRadius: '50px',
-                  fontSize: '16px',
-                  color: '#333',
-                },
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '50px',
-                  border: 'none',
-                  paddingLeft: '15px',
-                },
-                '& .MuiInputAdornment-root': {
-                  marginRight: '10px',
-                },
-              }}
-            />
-            <Button
-              variant="contained"
-              sx={{
-                background: 'linear-gradient(90deg, #061f59, #122b76)',
-                color: 'white',
-                borderRadius: '50px',
-                fontWeight: 'bold',
-                textTransform: 'capitalize',
-                padding: '10px 25px',
-                marginLeft: '10px',
-                '&:hover': {
-                  background: 'linear-gradient(90deg, #122b76, #061f59)',
-                },
-              }}
-              onClick={() => {
-                // Implement search functionality or navigation
-                alert('Search functionality to be implemented.');
-              }}
+            {/* Headline */}
+            <motion.div variants={heroItemVariants}>
+              <Typography
+                sx={{
+                  fontWeight: 'bold',
+                  mb: 1,
+                  letterSpacing: '1px',
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                }}
+              >
+                Welcome to{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Supreme Temple Jewellery
+                </span>
+              </Typography>
+            </motion.div>
+
+            {/* Sub-Headline */}
+            <motion.div variants={heroItemVariants}>
+              <Typography
+                sx={{
+                  mt: 1,
+                  mb: 4,
+                  fontWeight: 500,
+                  fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
+                }}
+              >
+                We are{' '}
+                <strong style={{ fontWeight: 'bold' }}>specialists</strong> in{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Dance Costumes &amp; Jewelry
+                </span>{' '}
+                <motion.span
+                  whileHover={{ scale: 1.12 }}
+                  style={{
+                    display: 'inline-block',
+                    marginLeft: '6px',
+                    fontStyle: 'italic',
+                    background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Since 1967
+                </motion.span>
+              </Typography>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={heroItemVariants}
+              style={{ display: 'flex', justifyContent: 'center', gap: 12 }}
             >
-              Search
-            </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                  color: '#000',
+                  borderRadius: '30px',
+                  px: { xs: 2, md: 4 },
+                  py: { xs: 1, md: 1.5 },
+                  fontSize: { xs: '14px', md: '18px' },
+                  fontWeight: 'bold',
+                  boxShadow: '0px 4px 15px rgba(255, 165, 0, 0.4)',
+                  '&:hover': {
+                    background: 'linear-gradient(90deg, #FF8C00, #FFD700)',
+                    transform: 'scale(1.05)',
+                    transition: '0.3s ease',
+                  },
+                }}
+                onClick={() => navigate('/products')}
+              >
+                Shop Now
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{
+                  background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                  color: '#000',
+                  borderRadius: '30px',
+                  px: { xs: 2, md: 4 },
+                  py: { xs: 1, md: 1.5 },
+                  fontSize: { xs: '14px', md: '18px' },
+                  fontWeight: 'bold',
+                  boxShadow: '0px 4px 15px rgba(255, 165, 0, 0.4)',
+                  '&:hover': {
+                    background: 'linear-gradient(90deg, #FF8C00, #FFD700)',
+                    transform: 'scale(1.05)',
+                    transition: '0.3s ease',
+                  },
+                }}
+                onClick={() => navigate('/categories')}
+              >
+                Explore More
+              </Button>
+            </motion.div>
+
+            {/* Search Bar */}
+            <motion.div variants={heroItemVariants}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  maxWidth: '700px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '50px',
+                  boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.2)',
+                  p: 1,
+                  mx: 'auto',
+                  mt: 4,
+                }}
+              >
+                <TextField
+                  placeholder="Search Bharathanatyam jewellery..."
+                  variant="outlined"
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon sx={{ color: '#FFD700' }} />
+                      </InputAdornment>
+                    ),
+                    style: {
+                      backgroundColor: 'transparent',
+                      borderRadius: '50px',
+                      fontSize: '16px',
+                      color: '#fff',
+                    },
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '50px',
+                      border: 'none',
+                      paddingLeft: '10px',
+                    },
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    ml: 1,
+                    background: 'linear-gradient(90deg, #FFD700, #FF8C00)',
+                    color: '#000',
+                    borderRadius: '50px',
+                    fontWeight: 'bold',
+                    textTransform: 'capitalize',
+                    px: { xs: 2, md: 3 },
+                    fontSize: { xs: '14px', md: '16px' },
+                    '&:hover': {
+                      background: 'linear-gradient(90deg, #FF8C00, #FFD700)',
+                      transform: 'scale(1.05)',
+                      transition: '0.3s ease',
+                    },
+                  }}
+                  onClick={() => navigate('/search')}
+                >
+                  Search
+                </Button>
+              </Box>
+            </motion.div>
           </Box>
         </Box>
+        {/** ========================== Hero Section END ========================== **/}
 
         {/* --- Coming Soon Section --- */}
         <ComingSoon />
 
         {/* --- Quick Selection (Categories) --- */}
-        <Container sx={{ mt: 10 }}>
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center' }}>
+        <Container sx={{ mt: 8 }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              textAlign: 'center',
+              mb: 5,
+              fontWeight: 'bold',
+              color: '#C99C33', // Elegant Gold
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
             Quick Selection
           </Typography>
-          <Slider {...sliderSettings}>
-            {categories.map((category, index) => (
-              <Box key={index} sx={{ p: 1 }}>
-                <Card
-                  sx={{
-                    ':hover': {
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-                    },
-                    borderRadius: '15px',
-                    overflow: 'hidden',
-                  }}
+
+          <motion.div
+            variants={sectionContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Slider {...sliderSettings}>
+              {categories.map((category, index) => (
+                <motion.div key={index} variants={sectionItemVariants}>
+                  <Box sx={{ p: 2 }}>
+                    <motion.div variants={tiltHover} whileHover="hover">
+                      <Card
+                        sx={{
+                          borderRadius: '15px',
+                          overflow: 'hidden',
+                          cursor: 'pointer',
+                          boxShadow: '0px 4px 10px rgba(201, 156, 51, 0.3)',
+                          transition:
+                            'transform 0.3s ease, box-shadow 0.3s ease',
+                          '&:hover': {
+                            transform: 'scale(1.05)',
+                            boxShadow: '0px 8px 20px rgba(201, 156, 51, 0.4)',
+                          },
+                          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Soft Glassmorphism
+                          backdropFilter: 'blur(10px)',
+                        }}
+                        onClick={() => handleCategoryClick(category.link)}
+                      >
+                        <CardMedia
+                          component="img"
+                          image={category.image}
+                          alt={category.name}
+                          height="220"
+                          sx={{
+                            objectFit: 'cover',
+                            transition: 'opacity 0.3s ease-in-out',
+                            '&:hover': { opacity: 0.85 },
+                          }}
+                        />
+                        <CardContent
+                          sx={{
+                            textAlign: 'center',
+                            p: 2,
+                          }}
+                        >
+                          <Typography
+                            variant="h6"
+                            textAlign="center"
+                            sx={{
+                              mb: 2,
+                              fontWeight: 'bold',
+                              fontFamily: "'Poppins', sans-serif",
+                              color: '#5A463C', // Rich, earthy brown
+                            }}
+                          >
+                            {category.name}
+                          </Typography>
+                          <Button
+                            variant="contained"
+                            sx={{
+                              background:
+                                'linear-gradient(135deg, #C99C33, #E0B769)', // Luxurious Gold
+                              color: '#fff',
+                              fontWeight: 'bold',
+                              textTransform: 'capitalize',
+                              borderRadius: '20px',
+                              px: 3,
+                              py: 1,
+                              transition: 'all 0.3s ease-in-out',
+                              '&:hover': {
+                                background:
+                                  'linear-gradient(135deg, #B3882F, #D4AF37)',
+                                transform: 'translateY(-3px)',
+                              },
+                              display: 'block',
+                              mx: 'auto',
+                              boxShadow: '0px 4px 10px rgba(201, 156, 51, 0.4)',
+                            }}
+                          >
+                            Explore
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </Box>
+                </motion.div>
+              ))}
+            </Slider>
+          </motion.div>
+        </Container>
+
+        {/** ====================== Diagonal / Wave CTA Section START ====================== **/}
+        <Box
+          sx={{
+            position: 'relative',
+            mt: 8,
+            clipPath: 'polygon(0 4%, 100% 0%, 100% 100%, 0 100%)',
+            backgroundColor: '#fa8302', // Earthy Orange
+            color: '#fff',
+            pb: 6,
+          }}
+        >
+          <Container sx={{ pt: 10 }}>
+            <Grid container alignItems="center" spacing={6}>
+              {/* Left Side - Text */}
+              <Grid item xs={12} md={6}>
+                <motion.div
+                  variants={sectionContainerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
                 >
-                  <CardMedia
-                    component="img"
-                    image={category.image}
-                    alt={category.name}
-                    height="200"
-                  />
-                  <CardContent>
-                    <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
-                      {category.name}
+                  <motion.div variants={sectionItemVariants}>
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontWeight: 'bold',
+                        mb: 2,
+                        fontSize: { xs: '1.75rem', md: '2.125rem' },
+                      }}
+                    >
+                      Customise your dance costume and jewellery
                     </Typography>
+                  </motion.div>
+                  <motion.div variants={sectionItemVariants}>
+                    <Typography variant="body1" sx={{ mb: 4 }}>
+                      Talk to our expert and get your dance costume and
+                      accessories tailored exactly to your style and
+                      measurements.
+                    </Typography>
+                  </motion.div>
+                  <motion.div variants={sectionItemVariants}>
                     <Button
                       variant="contained"
                       sx={{
-                        background: '#fa8302', // Earthy Orange
-                        color: '#fff',
-                        fontWeight: 'bold',
+                        background: 'linear-gradient(90deg, #061f59, #122b76)',
+                        color: 'white',
                         textTransform: 'capitalize',
+                        fontWeight: 'bold',
+                        padding: { xs: '8px 20px', md: '10px 25px' },
+                        borderRadius: '30px',
+                        fontSize: { xs: '14px', md: '16px' },
                         '&:hover': {
-                          background: '#e67300',
+                          background:
+                            'linear-gradient(90deg, #122b76, #061f59)',
                         },
                       }}
-                      onClick={() => handleCategoryClick(category.link)}
+                      onClick={() => navigate('/contact')}
                     >
-                      Explore
+                      Book Now
                     </Button>
-                  </CardContent>
-                </Card>
-              </Box>
-            ))}
-          </Slider>
-        </Container>
-
-        {/* --- Custom Orange Section (Call to Action) --- */}
-        <Box
-          sx={{
-            backgroundColor: '#fa8302', // Earthy Orange
-            color: '#fff',
-            mt: 6,
-            py: 5,
-          }}
-        >
-          <Container>
-            <Grid container alignItems="center" spacing={4}>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  Customise your dance costume and jewellery
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 4 }}>
-                  Talk to our expert and get your dance costume and accessories
-                  tailored exactly to your style and measurements.
-                </Typography>
-                <Button
-                  variant="contained"
-                  sx={{
-                    background: 'linear-gradient(90deg, #061f59, #122b76)',
-                    color: 'white',
-                    textTransform: 'capitalize',
-                    fontWeight: 'bold',
-                    padding: '10px 25px',
-                    borderRadius: '30px',
-                    '&:hover': {
-                      background: 'linear-gradient(90deg, #122b76, #061f59)',
-                    },
-                  }}
-                  onClick={() => navigate('/contact')}
-                >
-                  Book Now
-                </Button>
+                  </motion.div>
+                </motion.div>
               </Grid>
 
-              {/* Right side: Local video from /public/videos/my-custom-video.mp4 */}
-              <Grid
-                item
-                xs={12}
-                md={6}
-                sx={{ textAlign: 'center', mt: { xs: 4, md: 3 } }}
-              >
-                <video
-                  width="100%"
-                  height="400"
-                  style={{ borderRadius: '8px' }}
-                  controls
-                  autoPlay
-                  muted
-                  loop
+              {/* Right side: Local video */}
+              <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
+                <motion.div
+                  variants={sectionContainerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
                 >
-                  <source src="/videos/my-custom-video.mp4" type="video/mp4" />
-                  {/* Fallback text for older browsers */}
-                  {/* Use braces to avoid unescaped entity warning */}
-                  {'Your browser does not support the HTML5 video element.'}
-                </video>
+                  <motion.div variants={sectionItemVariants}>
+                    <Box sx={{ overflow: 'hidden', borderRadius: '12px' }}>
+                      <video
+                        width="100%"
+                        height="400"
+                        style={{ borderRadius: '8px' }}
+                        controls
+                        autoPlay
+                        muted
+                        loop
+                      >
+                        <source
+                          src="/videos/my-custom-video.mp4"
+                          type="video/mp4"
+                        />
+                        {
+                          'Your browser does not support the HTML5 video element.'
+                        }
+                      </video>
+                    </Box>
+                  </motion.div>
+                </motion.div>
               </Grid>
             </Grid>
           </Container>
+          {/* bottom wave */}
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              height: '80px',
+              background: '#fa8302',
+              clipPath: 'polygon(0 0, 100% 100%, 0 100%)',
+            }}
+          />
         </Box>
+        {/** ====================== Diagonal / Wave CTA Section END ====================== **/}
 
         {/* --- Featured Products --- */}
-        <Container sx={{ mt: 6 }}>
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center' }}>
+        <Container sx={{ mt: 10 }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ textAlign: 'center', mb: 5 }}
+          >
             Featured Products
           </Typography>
-          <Grid container spacing={3}>
-            {featuredProducts.map((product, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Card
-                  sx={{
-                    transition: 'transform 0.3s ease',
-                    ':hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
-                    },
-                    borderRadius: '15px',
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    image={product.image}
-                    alt={product.name}
-                    height="200"
-                  />
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                      {product.name}
-                    </Typography>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      {product.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        background: '#fa8302', // Earthy Orange
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        textTransform: 'capitalize',
-                        width: '100%',
-                        '&:hover': {
-                          background: '#e67300',
-                        },
-                      }}
-                    >
-                      Add to Cart
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <motion.div
+            variants={sectionContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Grid container spacing={3}>
+              {featuredProducts.map((product, index) => (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <motion.div
+                    variants={sectionItemVariants}
+                    whileHover="hover"
+                    style={{ height: '100%' }}
+                  >
+                    <motion.div variants={tiltHover}>
+                      <Card
+                        sx={{
+                          borderRadius: '15px',
+                          overflow: 'hidden',
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          cursor: 'pointer',
+                          transition: 'transform 0.2s ease',
+                          '&:hover': {
+                            transform: 'translateY(-2px)',
+                          },
+                        }}
+                      >
+                        <CardMedia
+                          component="img"
+                          image={product.image}
+                          alt={product.name}
+                          height="220"
+                        />
+                        <CardContent sx={{ flexGrow: 1 }}>
+                          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                            {product.name}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            color="text.secondary"
+                          >
+                            {product.price}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button
+                            variant="contained"
+                            sx={{
+                              background: '#fa8302', // Earthy Orange
+                              color: '#fff',
+                              fontWeight: 'bold',
+                              textTransform: 'capitalize',
+                              width: '100%',
+                              '&:hover': {
+                                background: '#e67300',
+                              },
+                            }}
+                          >
+                            Add to Cart
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </motion.div>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </motion.div>
         </Container>
 
         {/* --- Latest Blogs --- */}
-        <Container sx={{ mt: 6 }}>
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center' }}>
+        <Container sx={{ mt: 10 }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ textAlign: 'center', mb: 5 }}
+          >
             Latest Blogs
           </Typography>
           <Grid container spacing={4}>
             {/* Left side: Large featured blog */}
             <Grid item xs={12} md={6}>
-              <Card
-                sx={{
-                  cursor: 'pointer',
-                  transition: 'box-shadow 0.3s ease',
-                  ':hover': { boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.3)' },
-                  borderRadius: '15px',
-                }}
-                onClick={() => handleBlogClick(featuredBlog.link)}
+              <motion.div
+                variants={sectionContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
               >
-                <CardMedia
-                  component="img"
-                  alt={featuredBlog.title}
-                  height="300"
-                  image={featuredBlog.image}
-                />
-                <CardContent>
-                  <Typography
-                    variant="subtitle2"
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {featuredBlog.date}
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{ fontWeight: 'bold' }}
-                  >
-                    {featuredBlog.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {featuredBlog.description}
-                  </Typography>
-                  <Button
-                    variant="text"
+                <motion.div
+                  variants={sectionItemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  style={{ transformOrigin: 'center' }}
+                >
+                  <Card
                     sx={{
-                      mt: 2,
-                      color: '#fa8302', // Earthy Orange
-                      fontWeight: 'bold',
-                      textTransform: 'capitalize',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.3s ease',
+                      ':hover': {
+                        boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
+                      },
+                      borderRadius: '15px',
+                      overflow: 'hidden',
                     }}
+                    onClick={() => handleBlogClick(featuredBlog.link)}
                   >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
+                    <CardMedia
+                      component="img"
+                      alt={featuredBlog.title}
+                      height="300"
+                      image={featuredBlog.image}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="subtitle2"
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        {featuredBlog.date}
+                      </Typography>
+                      <Typography
+                        variant="h5"
+                        gutterBottom
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        {featuredBlog.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {featuredBlog.description}
+                      </Typography>
+                      <Button
+                        variant="text"
+                        sx={{
+                          mt: 2,
+                          color: '#fa8302',
+                          fontWeight: 'bold',
+                          textTransform: 'capitalize',
+                        }}
+                      >
+                        Read More
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
             </Grid>
 
             {/* Right side: Smaller blog cards */}
             <Grid item xs={12} md={6}>
-              {blogs.map((blog, index) => (
-                <Card
-                  key={index}
-                  sx={{
-                    mb: 2,
-                    cursor: 'pointer',
-                    transition: 'box-shadow 0.3s ease',
-                    ':hover': { boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.3)' },
-                    borderRadius: '15px',
-                  }}
-                  onClick={() => handleBlogClick(blog.link)}
-                >
-                  <Grid container>
-                    <Grid item xs={4}>
-                      <CardMedia
-                        component="img"
-                        alt={blog.title}
-                        image={blog.image}
-                        height="100"
-                        sx={{
-                          objectFit: 'cover',
-                          width: '100%',
-                          height: '100%',
-                          borderTopLeftRadius: '15px',
-                          borderBottomLeftRadius: '15px',
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={8}>
-                      <CardContent>
-                        <Typography variant="subtitle2" color="text.secondary">
-                          {blog.date}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          gutterBottom
-                          sx={{ fontWeight: 'bold' }}
-                        >
-                          {blog.title}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          noWrap
-                        >
-                          {blog.description}
-                        </Typography>
-                      </CardContent>
-                    </Grid>
-                  </Grid>
-                </Card>
-              ))}
+              <motion.div
+                variants={sectionContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {blogs.map((blog, index) => (
+                  <motion.div
+                    key={index}
+                    variants={sectionItemVariants}
+                    whileHover={{ scale: 1.02 }}
+                    style={{ transformOrigin: 'center', marginBottom: '16px' }}
+                  >
+                    <Card
+                      sx={{
+                        cursor: 'pointer',
+                        transition: 'box-shadow 0.3s ease',
+                        ':hover': {
+                          boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
+                        },
+                        borderRadius: '15px',
+                        overflow: 'hidden',
+                      }}
+                      onClick={() => handleBlogClick(blog.link)}
+                    >
+                      <Grid container>
+                        <Grid item xs={4}>
+                          <CardMedia
+                            component="img"
+                            alt={blog.title}
+                            image={blog.image}
+                            height="100"
+                            sx={{
+                              objectFit: 'cover',
+                              width: '100%',
+                              height: '100%',
+                              borderTopLeftRadius: '15px',
+                              borderBottomLeftRadius: '15px',
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={8}>
+                          <CardContent>
+                            <Typography
+                              variant="subtitle2"
+                              color="text.secondary"
+                            >
+                              {blog.date}
+                            </Typography>
+                            <Typography
+                              variant="subtitle1"
+                              gutterBottom
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {blog.title}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              noWrap
+                            >
+                              {blog.description}
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
             </Grid>
           </Grid>
         </Container>
