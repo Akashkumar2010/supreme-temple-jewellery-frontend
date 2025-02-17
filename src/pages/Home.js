@@ -45,10 +45,7 @@ const sectionContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      delay: 0.2,
-      staggerChildren: 0.1,
-    },
+    transition: { delay: 0.2, staggerChildren: 0.1 },
   },
 };
 
@@ -59,10 +56,16 @@ const sectionItemVariants = {
 
 // Subtle hover effect for cards
 const tiltHover = {
-  hover: {
-    scale: 1.02,
-    transition: { type: 'spring', stiffness: 150 },
-  },
+  hover: { scale: 1.02, transition: { type: 'spring', stiffness: 150 } },
+};
+
+// Reusable style for glittering keywords
+const glitterStyle = {
+  background: 'linear-gradient(90deg, #FFC107, #FF8C00, #FFC107)',
+  backgroundSize: '200% auto',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  animation: 'shimmer 2s linear infinite',
 };
 
 function Home() {
@@ -217,24 +220,9 @@ function Home() {
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
   };
 
@@ -249,10 +237,10 @@ function Home() {
   return (
     <div
       style={{
-        backgroundImage: 'url("/moroccan-flower.png")',
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'auto',
-        backgroundPosition: 'center',
+        background:
+          'linear-gradient(135deg, rgba(255,248,230,0.6) 0%, rgba(255,245,220,0.4) 100%)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
         minHeight: '100vh',
       }}
     >
@@ -271,20 +259,15 @@ function Home() {
             flexDirection: 'column',
             justifyContent: 'center',
             textAlign: 'center',
-            background: `url("https://www.indiannatya.com/my_contentz/uploads/2022/11/banner6.jpg") 
-                         no-repeat center center`,
+            background:
+              'url("https://www.indiannatya.com/my_contentz/uploads/2022/11/banner6.jpg") no-repeat center center',
             backgroundSize: 'cover',
-            backgroundAttachment: {
-              xs: 'scroll',
-              md: 'fixed',
-            },
-            // We'll still do a diagonal clip on bottom:
+            backgroundAttachment: { xs: 'scroll', md: 'fixed' },
             clipPath: {
               xs: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
               md: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
             },
             overflow: 'hidden',
-            // Dark overlay
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -296,7 +279,6 @@ function Home() {
                 'linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0.5))',
               zIndex: 1,
             },
-            // Wave at the bottom using an absolutely positioned SVG
             '&::after': {
               content: '""',
               position: 'absolute',
@@ -307,7 +289,6 @@ function Home() {
               background: 'url("/wave-bottom.svg") no-repeat bottom center',
               backgroundSize: 'cover',
               zIndex: 2,
-              // Make sure wave is on top of overlay but behind hero text
             },
           }}
         >
@@ -315,7 +296,7 @@ function Home() {
           <Box
             sx={{
               position: 'relative',
-              zIndex: 3, // above overlay & wave
+              zIndex: 3,
               maxWidth: '900px',
               mx: 'auto',
               px: 2,
@@ -502,26 +483,23 @@ function Home() {
           </Box>
         </Box>
         {/** ========================== Hero Section END ========================== **/}
-
         {/* --- Coming Soon Section --- */}
         <ComingSoon />
-
-        {/* --- Quick Selection (Categories) --- */}
+        {/* --- Quick Selection Section with Fixed Card Size & Enhanced UI --- */}
         <Container sx={{ mt: 8 }}>
           <Typography
-            variant="h4"
+            variant="h3"
             gutterBottom
             sx={{
               textAlign: 'center',
               mb: 5,
               fontWeight: 'bold',
-              color: '#C99C33', // Elegant Gold
+              color: '#C99C33',
               fontFamily: "'Playfair Display', serif",
             }}
           >
             Quick Selection
           </Typography>
-
           <motion.div
             variants={sectionContainerVariants}
             initial="hidden"
@@ -531,50 +509,129 @@ function Home() {
             <Slider {...sliderSettings}>
               {categories.map((category, index) => (
                 <motion.div key={index} variants={sectionItemVariants}>
-                  <Box sx={{ p: 2 }}>
-                    <motion.div variants={tiltHover} whileHover="hover">
+                  <Box
+                    sx={{
+                      px: 1,
+                      py: 2,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <motion.div
+                      variants={{
+                        hover: {
+                          scale: 1.06,
+                          rotate: 1,
+                          transition: {
+                            type: 'spring',
+                            stiffness: 200,
+                            damping: 10,
+                          },
+                        },
+                      }}
+                      whileHover="hover"
+                      style={{
+                        width: '100%',
+                        maxWidth: 340,
+                        minWidth: 340,
+                        height: 420,
+                      }}
+                    >
                       <Card
                         sx={{
-                          borderRadius: '15px',
+                          position: 'relative',
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          borderRadius: '20px',
                           overflow: 'hidden',
                           cursor: 'pointer',
-                          boxShadow: '0px 4px 10px rgba(201, 156, 51, 0.3)',
-                          transition:
-                            'transform 0.3s ease, box-shadow 0.3s ease',
+                          transition: 'transform 0.3s, box-shadow 0.3s',
+                          background:
+                            'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.9))',
+                          backdropFilter: 'blur(5px)',
                           '&:hover': {
-                            transform: 'scale(1.05)',
-                            boxShadow: '0px 8px 20px rgba(201, 156, 51, 0.4)',
+                            transform: 'scale(1.06)',
+                            boxShadow: '0 10px 20px rgba(201, 156, 51, 0.5)',
                           },
-                          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Soft Glassmorphism
-                          backdropFilter: 'blur(10px)',
+                          '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            inset: 0,
+                            borderRadius: 'inherit',
+                            padding: '2px',
+                            background: `linear-gradient(
+                              90deg, 
+                              #C99C33, 
+                              #E0B769, 
+                              #FFD700, 
+                              #E0B769, 
+                              #C99C33
+                            )`,
+                            backgroundSize: '200% auto',
+                            backgroundPosition: '0% 50%',
+                            animation: 'borderMove 3s linear infinite',
+                            WebkitMask:
+                              'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                            WebkitMaskComposite: 'xor',
+                            pointerEvents: 'none',
+                            opacity: 0,
+                            transition: 'opacity 0.3s ease',
+                          },
+                          '&:hover::before': { opacity: 1 },
+                          '@keyframes borderMove': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '200% 50%' },
+                          },
                         }}
                         onClick={() => handleCategoryClick(category.link)}
                       >
-                        <CardMedia
-                          component="img"
-                          image={category.image}
-                          alt={category.name}
-                          height="220"
-                          sx={{
-                            objectFit: 'cover',
-                            transition: 'opacity 0.3s ease-in-out',
-                            '&:hover': { opacity: 0.85 },
-                          }}
-                        />
+                        <Box sx={{ position: 'relative', flex: '0 0 auto' }}>
+                          <CardMedia
+                            component="img"
+                            image={category.image}
+                            alt={category.name}
+                            sx={{
+                              height: 240,
+                              width: '100%',
+                              objectFit: 'cover',
+                              transition: 'transform 0.3s ease',
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              background:
+                                'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)',
+                              opacity: 0,
+                              transition: 'opacity 0.3s ease',
+                              '&:hover': { opacity: 1 },
+                            }}
+                          />
+                        </Box>
                         <CardContent
                           sx={{
-                            textAlign: 'center',
+                            flex: '1 0 auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             p: 2,
+                            textAlign: 'center',
                           }}
                         >
                           <Typography
                             variant="h6"
-                            textAlign="center"
                             sx={{
                               mb: 2,
                               fontWeight: 'bold',
                               fontFamily: "'Poppins', sans-serif",
-                              color: '#5A463C', // Rich, earthy brown
+                              color: '#5A463C',
+                              textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
                             }}
                           >
                             {category.name}
@@ -583,22 +640,20 @@ function Home() {
                             variant="contained"
                             sx={{
                               background:
-                                'linear-gradient(135deg, #C99C33, #E0B769)', // Luxurious Gold
+                                'linear-gradient(135deg, #C99C33, #E0B769)',
                               color: '#fff',
                               fontWeight: 'bold',
                               textTransform: 'capitalize',
                               borderRadius: '20px',
                               px: 3,
                               py: 1,
-                              transition: 'all 0.3s ease-in-out',
+                              boxShadow: '0 4px 10px rgba(201, 156, 51, 0.4)',
+                              transition: 'background 0.3s, transform 0.3s',
                               '&:hover': {
                                 background:
                                   'linear-gradient(135deg, #B3882F, #D4AF37)',
                                 transform: 'translateY(-3px)',
                               },
-                              display: 'block',
-                              mx: 'auto',
-                              boxShadow: '0px 4px 10px rgba(201, 156, 51, 0.4)',
                             }}
                           >
                             Explore
@@ -612,15 +667,14 @@ function Home() {
             </Slider>
           </motion.div>
         </Container>
-
         {/** ====================== Diagonal / Wave CTA Section START ====================== **/}
         <Box
           sx={{
             position: 'relative',
             mt: 8,
             clipPath: 'polygon(0 4%, 100% 0%, 100% 100%, 0 100%)',
-            backgroundColor: '#fa8302', // Earthy Orange
-            color: '#fff',
+            background: 'linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%)',
+            color: '#5A463C',
             pb: 6,
           }}
         >
@@ -634,6 +688,7 @@ function Home() {
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
+                  {/* Shimmering Header with Highlighted Keywords */}
                   <motion.div variants={sectionItemVariants}>
                     <Typography
                       variant="h4"
@@ -641,18 +696,28 @@ function Home() {
                         fontWeight: 'bold',
                         mb: 2,
                         fontSize: { xs: '1.75rem', md: '2.125rem' },
+                        textShadow: 'none',
                       }}
                     >
-                      Customise your dance costume and jewellery
+                      Customise your dance{' '}
+                      <span style={glitterStyle}>costume</span> and{' '}
+                      <span style={glitterStyle}>jewellery</span>
                     </Typography>
                   </motion.div>
+
+                  {/* Shimmering Sub-Text with Highlighted Keywords */}
                   <motion.div variants={sectionItemVariants}>
-                    <Typography variant="body1" sx={{ mb: 4 }}>
-                      Talk to our expert and get your dance costume and
-                      accessories tailored exactly to your style and
-                      measurements.
+                    <Typography
+                      variant="body1"
+                      sx={{ mb: 4, textShadow: 'none' }}
+                    >
+                      Talk to our <span style={glitterStyle}>expert</span> and
+                      get your dance costume and accessories tailored exactly to
+                      your <span style={glitterStyle}>style</span> and{' '}
+                      <span style={glitterStyle}>measurements</span>.
                     </Typography>
                   </motion.div>
+
                   <motion.div variants={sectionItemVariants}>
                     <Button
                       variant="contained"
@@ -677,7 +742,7 @@ function Home() {
                 </motion.div>
               </Grid>
 
-              {/* Right side: Local video */}
+              {/* Right Side - Local Video */}
               <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
                 <motion.div
                   variants={sectionContainerVariants}
@@ -710,7 +775,8 @@ function Home() {
               </Grid>
             </Grid>
           </Container>
-          {/* bottom wave */}
+
+          {/* Bottom Wave */}
           <Box
             sx={{
               position: 'absolute',
@@ -718,7 +784,7 @@ function Home() {
               left: 0,
               width: '100%',
               height: '80px',
-              background: '#fa8302',
+              background: '#FFECB3',
               clipPath: 'polygon(0 0, 100% 100%, 0 100%)',
             }}
           />
@@ -730,75 +796,153 @@ function Home() {
           <Typography
             variant="h4"
             gutterBottom
-            sx={{ textAlign: 'center', mb: 5 }}
+            sx={{
+              textAlign: 'center',
+              mb: 5,
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              color: '#222',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                width: '60px',
+                height: '4px',
+                background: 'linear-gradient(90deg, #fa8302, #e67300)',
+                display: 'block',
+                margin: '8px auto 0',
+                borderRadius: '2px',
+              },
+            }}
           >
             Featured Products
           </Typography>
+
           <motion.div
-            variants={sectionContainerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, ease: 'easeOut' },
+            }}
             viewport={{ once: true }}
           >
-            <Grid container spacing={3}>
+            <Grid container spacing={4}>
               {featuredProducts.map((product, index) => (
                 <Grid item xs={12} sm={6} md={3} key={index}>
                   <motion.div
-                    variants={sectionItemVariants}
-                    whileHover="hover"
-                    style={{ height: '100%' }}
+                    whileHover={{ scale: 1.02 }}
+                    style={{
+                      height: '100%',
+                      perspective: 800,
+                      transformStyle: 'preserve-3d',
+                    }}
                   >
-                    <motion.div variants={tiltHover}>
-                      <Card
-                        sx={{
-                          borderRadius: '15px',
-                          overflow: 'hidden',
-                          height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          cursor: 'pointer',
-                          transition: 'transform 0.2s ease',
-                          '&:hover': {
-                            transform: 'translateY(-2px)',
-                          },
-                        }}
-                      >
-                        <CardMedia
-                          component="img"
-                          image={product.image}
-                          alt={product.name}
-                          height="220"
-                        />
-                        <CardContent sx={{ flexGrow: 1 }}>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                            {product.name}
-                          </Typography>
-                          <Typography
-                            variant="subtitle2"
-                            color="text.secondary"
-                          >
-                            {product.price}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Button
-                            variant="contained"
+                    <Card
+                      sx={{
+                        position: 'relative',
+                        borderRadius: '20px',
+                        overflow: 'hidden',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        cursor: 'pointer',
+                        transition: 'all 0.4s ease',
+                        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                        border: '2px solid transparent',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          borderColor: '#e67300', // Only border color changes
+                          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
+                        },
+                      }}
+                    >
+                      <Box sx={{ position: 'relative' }}>
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, ease: 'easeOut' }}
+                          style={{
+                            position: 'absolute',
+                            top: 10,
+                            left: 10,
+                            background:
+                              'linear-gradient(45deg, #fa8302, #e67300)',
+                            color: '#fff',
+                            padding: '4px 10px',
+                            borderRadius: '4px',
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            zIndex: 2,
+                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+                          }}
+                        >
+                          Hot
+                        </motion.div>
+
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <CardMedia
+                            component="img"
+                            image={product.image}
+                            alt={product.name}
+                            height="220"
                             sx={{
-                              background: '#fa8302', // Earthy Orange
-                              color: '#fff',
-                              fontWeight: 'bold',
-                              textTransform: 'capitalize',
-                              width: '100%',
+                              transition: 'transform 0.4s ease',
                               '&:hover': {
-                                background: '#e67300',
+                                transform: 'scale(1.05)',
                               },
                             }}
-                          >
-                            Add to Cart
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </motion.div>
+                          />
+                        </motion.div>
+                      </Box>
+
+                      <CardContent
+                        sx={{ flexGrow: 1, textAlign: 'center', p: 2 }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: 'bold',
+                            mb: 1,
+                            transition: 'color 0.3s ease',
+                            '&:hover': { color: '#e67300' },
+                          }}
+                        >
+                          {product.name}
+                        </Typography>
+                        <Typography variant="subtitle2" color="text.secondary">
+                          {product.price}
+                        </Typography>
+                      </CardContent>
+
+                      <CardActions sx={{ p: 2 }}>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            background:
+                              'linear-gradient(90deg, #fa8302, #e67300)',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            textTransform: 'capitalize',
+                            width: '100%',
+                            transition: 'all 0.3s ease',
+                            boxShadow: '0 3px 10px rgba(0, 0, 0, 0.2)',
+                            '&:hover': {
+                              transform: 'translateY(-2px) scale(1.05)',
+                              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.4)',
+                              background:
+                                'linear-gradient(90deg, #e67300, #fa8302)',
+                            },
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
+                      </CardActions>
+                    </Card>
                   </motion.div>
                 </Grid>
               ))}
@@ -811,7 +955,23 @@ function Home() {
           <Typography
             variant="h4"
             gutterBottom
-            sx={{ textAlign: 'center', mb: 5 }}
+            sx={{
+              textAlign: 'center',
+              mb: 5,
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                width: '80px',
+                height: '4px',
+                background: 'linear-gradient(90deg, #fa8302, #e67300)',
+                display: 'block',
+                margin: '8px auto 0',
+                borderRadius: '2px',
+              },
+            }}
           >
             Latest Blogs
           </Typography>
@@ -826,15 +986,16 @@ function Home() {
               >
                 <motion.div
                   variants={sectionItemVariants}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.03 }}
                   style={{ transformOrigin: 'center' }}
                 >
                   <Card
                     sx={{
                       cursor: 'pointer',
-                      transition: 'box-shadow 0.3s ease',
+                      transition: 'box-shadow 0.3s ease, border 0.3s ease',
                       ':hover': {
-                        boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
+                        boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
+                        border: '2px solid #e67300',
                       },
                       borderRadius: '15px',
                       overflow: 'hidden',
@@ -846,6 +1007,10 @@ function Home() {
                       alt={featuredBlog.title}
                       height="300"
                       image={featuredBlog.image}
+                      sx={{
+                        transition: 'transform 0.4s ease',
+                        '&:hover': { transform: 'scale(1.05)' },
+                      }}
                     />
                     <CardContent>
                       <Typography
@@ -872,6 +1037,8 @@ function Home() {
                           color: '#fa8302',
                           fontWeight: 'bold',
                           textTransform: 'capitalize',
+                          transition: 'color 0.3s ease',
+                          '&:hover': { color: '#e67300' },
                         }}
                       >
                         Read More
@@ -900,9 +1067,10 @@ function Home() {
                     <Card
                       sx={{
                         cursor: 'pointer',
-                        transition: 'box-shadow 0.3s ease',
+                        transition: 'box-shadow 0.3s ease, border 0.3s ease',
                         ':hover': {
                           boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
+                          border: '2px solid #e67300',
                         },
                         borderRadius: '15px',
                         overflow: 'hidden',
@@ -922,6 +1090,8 @@ function Home() {
                               height: '100%',
                               borderTopLeftRadius: '15px',
                               borderBottomLeftRadius: '15px',
+                              transition: 'transform 0.3s ease',
+                              '&:hover': { transform: 'scale(1.1)' },
                             }}
                           />
                         </Grid>
