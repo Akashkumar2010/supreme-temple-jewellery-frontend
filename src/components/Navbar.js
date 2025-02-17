@@ -169,6 +169,22 @@ function Navbar() {
                 <MenuItem value="GBP">GBP</MenuItem>
               </Select>
             </FormControl>
+            {/* 🔹 Login Button in Mobile Drawer */}
+            <Box sx={{ p: 2, textAlign: 'center' }}>
+              <Button
+                component={Link}
+                to="/admin"
+                fullWidth
+                sx={{
+                  background: '#FFD700',
+                  color: '#000',
+                  fontWeight: 'bold',
+                  '&:hover': { background: '#CFA700' },
+                }}
+              >
+                Log-in
+              </Button>
+            </Box>
           </Box>
 
           {/* Icons */}
@@ -284,6 +300,22 @@ function Navbar() {
                 <MenuItem value="GBP">GBP</MenuItem>
               </Select>
             </FormControl>
+            {/* 🔹 Login Button in Mobile Drawer */}
+            <Box sx={{ p: 2, textAlign: 'center' }}>
+              <Button
+                component={Link}
+                to="/admin"
+                fullWidth
+                sx={{
+                  background: '#FFD700',
+                  color: '#000',
+                  fontWeight: 'bold',
+                  '&:hover': { background: '#CFA700' },
+                }}
+              >
+                Log-in
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Drawer>
