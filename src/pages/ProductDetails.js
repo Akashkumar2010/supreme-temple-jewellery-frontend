@@ -244,11 +244,13 @@ function ProductDetails() {
                   alt={product.name}
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: 'contain', // Changed from 'cover' to 'contain'
+                    backgroundColor: '#f5f5f5', // Light background for transparent images
                   }}
                 />
               </Box>
@@ -278,43 +280,43 @@ function ProductDetails() {
           </Paper>
 
           {/* Thumbnails */}
-          {product.images?.length >= 3 && (
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ mt: 2, overflowX: 'auto', pb: 1 }}
-            >
-              {product.images.map((img, index) => (
-                <Box
-                  key={index}
-                  onClick={() => setSelectedImage(img)}
-                  sx={{
-                    border:
-                      selectedImage === img
-                        ? `2px solid ${theme.palette.primary.main}`
-                        : '2px solid transparent',
-                    borderRadius: 1,
-                    cursor: 'pointer',
-                    flexShrink: 0,
-                    '&:hover': {
-                      borderColor: theme.palette.primary.main,
-                    },
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ mt: 2, overflowX: 'auto', pb: 1 }}
+          >
+            {product.images?.map((img, index) => (
+              <Box
+                key={index}
+                onClick={() => setSelectedImage(img)}
+                sx={{
+                  width: '60px',
+                  height: '60px',
+                  border: selectedImage === img
+                    ? `2px solid ${theme.palette.primary.main}`
+                    : '2px solid transparent',
+                  borderRadius: 1,
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  overflow: 'hidden',
+                  backgroundColor: '#f5f5f5',
+                  '&:hover': {
+                    borderColor: theme.palette.primary.main,
+                  },
+                }}
+              >
+                <img
+                  src={img}
+                  alt={`Thumbnail ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain', // Changed from 'cover' to 'contain'
                   }}
-                >
-                  <img
-                    src={img}
-                    alt={`Thumbnail ${index + 1}`}
-                    style={{
-                      width: '60px',
-                      height: '60px',
-                      objectFit: 'cover',
-                      borderRadius: '4px',
-                    }}
-                  />
-                </Box>
-              ))}
-            </Stack>
-          )}
+                />
+              </Box>
+            ))}
+          </Stack>
         </Grid>
 
         {/* Right Column: Product Info */}
