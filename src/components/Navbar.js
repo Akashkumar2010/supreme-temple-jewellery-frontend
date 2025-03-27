@@ -52,25 +52,60 @@ const NAV_LINKS = [
 ];
 
 const SECONDARY_NAV_LINKS = [
-  { title: 'Head Full Set', path: '/categories/headfullset' },
-  { title: 'Bangles', path: '/categories/bangles' },
-  { title: 'Necklace & Malai', path: '/categories/necklace-malai' },
-  { title: 'Otiyanam', path: '/categories/otiyanam' },
+  { title: 'Head-Full-Set', path: '/categories/headfullset' },
+  { title: 'Bangles', path: '/categories/Bangles' },
+  { title: 'Earings', path: '/categories/earings' },
+  { title: 'Necklace & LongHaram', path: '/categories/necklace-malai' },
+  { title: 'Ottiyanam', path: '/categories/otiyanam' },
+  { title: 'Ear Rings', path: '/categories/ear-rings' },
+  { title: 'Jhumkas', path: '/categories/jhumkas' },
   { title: 'Other Accessories', path: '/categories/other-accessories' },
 ];
 
-// Common button styles
+// Update the THEME_COLORS constant with more vibrant traditional colors
+const THEME_COLORS = {
+  // Rich Temple Colors
+  gold: '#FFD700', // Pure gold
+  darkGold: '#B8860B', // Dark goldenrod
+  lightGold: '#FFDF00', // Golden yellow
+  royalGold: '#FAD02C', // Royal gold
+
+  // Peacock Inspired Colors
+  peacockBlue: '#015C92', // Rich peacock blue
+  peacockGreen: '#0B6623', // Deep peacock green
+  peacockTeal: '#088F8F', // Vibrant teal
+  peacockEmerald: '#50C878', // Emerald green
+
+  // Traditional Temple Colors
+  kumkum: '#FF3D00', // Bright kumkum red
+  turmeric: '#FFA000', // Rich turmeric
+
+  // Accent Colors
+  pearl: '#FFF8DC', // Cream white
+  copper: '#CD7F32', // Rich copper
+
+  // Gradient Colors
+  gradientStart: '#0B6623', // Rich temple green
+  gradientMiddle: '#088F8F', // Vibrant teal
+  gradientEnd: '#015C92', // Deep peacock blue
+};
+
+// Update button styles for more attractive look
 const COMMON_BUTTON_STYLES = {
-  background: '#FFD700',
-  color: '#000',
+  background: `linear-gradient(135deg, ${THEME_COLORS.gold} 0%, ${THEME_COLORS.royalGold} 100%)`,
+  color: THEME_COLORS.peacockGreen,
   fontWeight: 'bold',
   '&:hover': {
-    background: '#CFA700',
-    transform: 'translateY(-1px)',
+    background: `linear-gradient(135deg, ${THEME_COLORS.royalGold} 0%, ${THEME_COLORS.gold} 100%)`,
+    transform: 'translateY(-2px)',
+    boxShadow: `0 4px 15px ${THEME_COLORS.gold}88`,
   },
-  transition: 'all 0.2s ease',
+  transition: 'all 0.3s ease',
   fontSize: { xs: '0.9rem', sm: '1rem' },
   py: { xs: 1, sm: 1.5 },
+  textTransform: 'none',
+  borderRadius: '6px',
+  border: `1px solid ${THEME_COLORS.gold}`,
 };
 
 function Navbar() {
@@ -199,12 +234,23 @@ function Navbar() {
       <AppBar
         position="fixed"
         sx={{
-          background: '#0A0A0A',
-          color: '#fff',
-          boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
+          background: `linear-gradient(135deg, ${THEME_COLORS.gradientStart}, ${THEME_COLORS.gradientMiddle} 50%, ${THEME_COLORS.gradientEnd})`,
+          color: THEME_COLORS.pearl,
+          boxShadow: `0px 4px 25px rgba(0,0,0,0.5), 0 0 20px ${THEME_COLORS.gold}44`,
           padding: { xs: '5px 0', md: '10px 0' },
-          borderBottom: '3px solid #FFD700',
+          borderBottom: `2px solid ${THEME_COLORS.gold}`,
           zIndex: theme => theme.zIndex.drawer + 2,
+          '&:before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `linear-gradient(45deg, ${THEME_COLORS.gold}22, transparent 25%, transparent 75%, ${THEME_COLORS.gold}22 75%)`,
+            backgroundSize: '3px 3px',
+            pointerEvents: 'none',
+          },
         }}
       >
         <Container maxWidth="xl">
@@ -368,25 +414,31 @@ function Navbar() {
         </Container>
       </AppBar>
 
-      {/* Toolbar placeholder */}
-      <Toolbar sx={{ minHeight: { xs: '56px', sm: '64px' } }} />
+      {/* Toolbar placeholder with increased height */}
+      <Toolbar sx={{ minHeight: { xs: '56px', sm: '64px' }, mb: 2 }} />
 
       {/* Secondary Navbar */}
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="xl"
+        sx={{
+          position: 'relative',
+          zIndex: 1200,
+          mt: 2.5,
+          mb: -7,
+        }}
+      >
         <Box
           component="nav"
           aria-label="Product Categories"
           sx={{
-            position: 'sticky',
-            top: { xs: '56px', sm: '64px' },
-            backgroundColor: '#fff',
-            borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-            zIndex: theme => theme.zIndex.drawer + 1,
+            position: 'relative',
+            background: 'transparent',
             display: 'flex',
             justifyContent: 'center',
-            gap: { xs: 1, sm: 2 },
+            gap: { xs: 1, sm: 1.5 },
             py: { xs: 1, sm: 1.5 },
-            px: { xs: 1, sm: 2, md: 5 },
+            px: { xs: 1, sm: 2, md: 3 },
+            mx: { xs: 1, sm: 2, md: 3 },
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
             msOverflowStyle: 'none',
@@ -394,8 +446,6 @@ function Navbar() {
             '&::-webkit-scrollbar': {
               display: 'none',
             },
-            boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
-            margin: '0 auto',
           }}
         >
           {SECONDARY_NAV_LINKS.map(link => (
@@ -405,20 +455,36 @@ function Navbar() {
               to={link.path}
               aria-current={isActiveLink(link.path) ? 'page' : undefined}
               sx={{
-                color: '#000',
-                fontWeight: 'bold',
-                fontSize: { xs: '11px', sm: '12px', md: '14px' },
+                color: THEME_COLORS.gradientStart,
+                fontWeight: 500,
+                fontSize: { xs: '11px', sm: '12px', md: '13px' },
                 whiteSpace: 'nowrap',
-                borderRadius: '20px',
-                px: { xs: 1.5, sm: 2 },
+                px: { xs: 1, sm: 1.5 },
+                py: { xs: 0.5, sm: 0.75 },
                 minWidth: 'auto',
+                textTransform: 'none',
+                letterSpacing: '0.3px',
+                background: 'transparent',
+                border: 'none',
                 '&:hover': {
-                  backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                  backgroundColor: 'transparent',
+                  color: THEME_COLORS.gold,
                   transform: 'translateY(-1px)',
                 },
                 transition: 'all 0.2s ease',
                 ...(isActiveLink(link.path) && {
-                  backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                  color: THEME_COLORS.gold,
+                  fontWeight: 700,
+                  '&:after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: -2,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '30%',
+                    height: '2px',
+                    backgroundColor: THEME_COLORS.gold,
+                  },
                 }),
               }}
             >
@@ -437,6 +503,8 @@ function Navbar() {
           '& .MuiDrawer-paper': {
             width: { xs: '85%', sm: 300 },
             maxWidth: '100%',
+            background: `linear-gradient(135deg, ${THEME_COLORS.gradientStart} 0%, ${THEME_COLORS.gradientMiddle} 50%, ${THEME_COLORS.gradientEnd} 100%)`,
+            borderRight: `2px solid ${THEME_COLORS.gold}`,
           },
         }}
       >
