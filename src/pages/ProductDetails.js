@@ -292,9 +292,10 @@ function ProductDetails() {
                 sx={{
                   width: '60px',
                   height: '60px',
-                  border: selectedImage === img
-                    ? `2px solid ${theme.palette.primary.main}`
-                    : '2px solid transparent',
+                  border:
+                    selectedImage === img
+                      ? `2px solid ${theme.palette.primary.main}`
+                      : '2px solid transparent',
                   borderRadius: 1,
                   cursor: 'pointer',
                   flexShrink: 0,
