@@ -91,7 +91,7 @@ function Cart() {
     }, 0);
 
   const subtotal = calculateSubtotal();
-  const tax = subtotal * 0.1;
+  const tax = subtotal * 0.12;
   const total = subtotal + tax;
 
   const handleSubmitOrder = () => {

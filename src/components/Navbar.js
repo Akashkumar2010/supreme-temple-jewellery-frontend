@@ -231,11 +231,20 @@ function Navbar() {
 
   // Define the paths where the secondary navbar should be visible
   const showSecondaryNavbar = [
-    '/',
-    '/products',
-    '/product',
-    '/categories',
-  ].some(path => location.pathname.startsWith(path));
+    '/', // Home page
+    '/products', // Products page
+    '/product', // Product Details page (this will match /product/:id)
+    '/categories', // Category page
+  ].some(path => {
+    // Check if the current pathname matches any of the defined paths
+    return (
+      location.pathname === path ||
+      (path === '/product' && location.pathname.startsWith('/product/')) ||
+      (path === '/categories' && location.pathname.startsWith('/categories/'))
+    );
+  });
+
+  console.log(location.pathname);
 
   return (
     <>
