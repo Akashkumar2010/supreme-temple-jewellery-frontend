@@ -80,14 +80,14 @@ function ProductCard({ product }) {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          transition: 'box-shadow 0.3s',
+          transition: 'box-shadow 0.3s, transform 0.3s',
           cursor: 'pointer',
-          border: '1px solid', // Added outline
-          borderColor: 'grey.300', // Neutral border color
-          borderRadius: '8px', // Optional rounded corners
+          border: '1px solid transparent', // Optional outline
+          borderRadius: '8px', // Rounded corners
+          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', // Subtle shadow
           '&:hover': {
-            boxShadow: 6,
-            borderColor: 'primary.main', // Highlight border on hover
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', // Enhanced shadow on hover
+            transform: 'scale(1.02)', // Slightly enlarge on hover
           },
         }}
       >
@@ -101,10 +101,10 @@ function ProductCard({ product }) {
         )}
 
         <CardContent>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap sx={{ fontWeight: 'bold' }}>
             {product.name}
           </Typography>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography variant="subtitle1" color="text.secondary">
             ₹{product.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -131,6 +131,16 @@ function ProductCard({ product }) {
             }}
           >
             Add to Cart
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={e => {
+              e.stopPropagation(); // Prevent navigating to product details
+              handleCardClick(); // Navigate to product details
+            }}
+          >
+            View Details
           </Button>
         </CardActions>
       </Card>
