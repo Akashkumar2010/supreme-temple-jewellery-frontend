@@ -472,7 +472,13 @@ function Navbar() {
                 to={link.path}
                 aria-current={isActiveLink(link.path) ? 'page' : undefined}
                 sx={{
-                  color: THEME_COLORS.pearl,
+                  color: ['/products', '/product', '/categories'].some(path =>
+                    location.pathname.startsWith(path)
+                  )
+                    ? '#000000'
+                    : '#FAF9F6',
+                  backgroundColor: 'transparent',
+                  borderRadius: '20px',
                   fontWeight: 700,
                   fontSize: { xs: '11px', sm: '12px', md: '13px' },
                   whiteSpace: 'nowrap',
@@ -481,20 +487,17 @@ function Navbar() {
                   minWidth: 'auto',
                   textTransform: 'none',
                   letterSpacing: '0.3px',
-                  background: 'transparent',
-                  border: `1px solid ${THEME_COLORS.pearl}`,
-                  borderRadius: '20px',
+                  border: `2px solid ${['/products', '/product', '/categories'].some(path => location.pathname.startsWith(path)) ? '#000000' : '#FAF9F6'}`,
                   '&:hover': {
-                    backgroundColor: `${THEME_COLORS.pearl}22`,
-                    color: THEME_COLORS.gold,
+                    backgroundColor: 'transparent',
+                    color: '#FFD700',
                     transform: 'translateY(-1px)',
-                    boxShadow: `0 2px 8px ${THEME_COLORS.pearl}44`,
                   },
                   transition: 'all 0.2s ease',
                   ...(isActiveLink(link.path) && {
-                    color: THEME_COLORS.gold,
-                    backgroundColor: `${THEME_COLORS.pearl}22`,
-                    borderColor: THEME_COLORS.gold,
+                    color: '#FFD700',
+                    backgroundColor: 'transparent',
+                    borderColor: '#FFD700',
                     '&:after': {
                       display: 'none',
                     },
