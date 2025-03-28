@@ -69,7 +69,7 @@ function ProductDetails() {
   const getDeliveryMessage = () => {
     const hoursLeft = getHoursUntilMidnight();
     return hoursLeft === 0
-      ? 'If you order now, your product will be delivered within 25 days.'
+      ? 'If you order now, your product will be delivered within 15 days.'
       : `If you order within the next ${hoursLeft} hour${hoursLeft > 1 ? 's' : ''} (before midnight), your product will be delivered within 25 days.`;
   };
 
@@ -198,7 +198,7 @@ function ProductDetails() {
   }
 
   return (
-    <Container sx={{ mt: 4, mb: 4 }}>
+    <Container sx={{ mt: 10, mb: 4 }}>
       {/* Breadcrumb Navigation */}
       <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2 }}>
         <MuiLink component={Link} to="/" underline="hover" color="inherit">
