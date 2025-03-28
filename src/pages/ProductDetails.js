@@ -253,11 +253,13 @@ function ProductDetails() {
                     backgroundColor: '#f5f5f5',
                     transition: 'transform 0.3s ease', // Smooth transition for zoom
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.1)'; // Zoom in on hover
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform =
+                      'translate(-50%, -50%) scale(1.1)'; // Zoom in on hover
                   }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)'; // Zoom out on leave
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform =
+                      'translate(-50%, -50%) scale(1)'; // Zoom out on leave
                   }}
                 />
               </Box>
@@ -388,11 +390,13 @@ function ProductDetails() {
               onClick={handleAddToWishlist}
               sx={{
                 border: '2px solid',
-                borderImage: 'linear-gradient(45deg,rgb(249, 214, 181), #FF8E53) 1', // Gradient border
+                borderImage:
+                  'linear-gradient(45deg,rgb(249, 214, 181), #FF8E53) 1', // Gradient border
                 background: 'transparent',
                 color: theme.palette.primary.main,
                 '&:hover': {
-                  borderImage: 'linear-gradient(45deg,rgb(221, 172, 145), #FE6B8B) 1',
+                  borderImage:
+                    'linear-gradient(45deg,rgb(221, 172, 145), #FE6B8B) 1',
                   backgroundColor: 'rgba(29, 38, 113, 0.04)',
                 },
               }}
