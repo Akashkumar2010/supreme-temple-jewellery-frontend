@@ -432,7 +432,7 @@ function Navbar() {
       </AppBar>
 
       {/* Toolbar placeholder with increased height */}
-      <Toolbar sx={{ minHeight: { xs: '56px', sm: '64px' }, mb: 2 }} />
+      <Toolbar sx={{ minHeight: { xs: '56px', sm: '65px' }, mb: 2 }} />
 
       {showSecondaryNavbar && (
         <Container
@@ -507,6 +507,21 @@ function Navbar() {
                 {link.title}
               </Button>
             ))}
+            {user && user.role === 'admin' && (
+              <Button
+                component={Link}
+                to="/admin"
+                sx={{
+                  color: '#FAF9F6',
+                  fontWeight: 700,
+                  fontSize: { xs: '14px', sm: '16px', md: '18px' },
+                  borderRadius: '20px',
+                  padding: '10px 20px',
+                }}
+              >
+                Admin
+              </Button>
+            )}
           </Box>
         </Container>
       )}
