@@ -52,6 +52,7 @@ function ComingSoon() {
         setSnackbarMsg('Thank you for signing up!');
         setSnackbarSeverity('success');
         setEmail('');
+        window.location.href = 'https://design-dreamer-helper.vercel.app';
       } else {
         setSnackbarMsg(data.message || 'Something went wrong.');
         setSnackbarSeverity('error');
@@ -76,6 +77,9 @@ function ComingSoon() {
         padding: { xs: '4rem 1rem', md: '6rem 8rem' },
         textAlign: 'center',
       }}
+      onClick={() =>
+        (window.location.href = 'https://design-dreamer-helper.vercel.app')
+      }
     >
       {/* Title */}
       <fadeIn>
@@ -116,7 +120,7 @@ function ComingSoon() {
         <Grid item xs={12} md={6}>
           <Paper elevation={2} sx={{ padding: '1rem', borderRadius: '12px' }}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw2fR-ODsZdI2J4Sb3H3yuCFtkxLN4xjXwjg&s"
+              src="https://github.com/Akashkumar2010/supreme_files/blob/main/Supreme-Ai%20preview.png?raw=true"
               alt="Jewelry AI Preview"
               style={{
                 width: '100%',
@@ -165,6 +169,17 @@ function ComingSoon() {
           sx={{
             backgroundColor: '#fff',
             borderRadius: '8px',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#C99C33', // Match with navbar color
+              },
+              '&:hover fieldset': {
+                borderColor: '#B3882F', // Darker shade on hover
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#C99C33', // Focus color
+              },
+            },
           }}
         />
         <Button

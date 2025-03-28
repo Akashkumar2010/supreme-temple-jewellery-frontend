@@ -6,10 +6,7 @@ function AboutUs() {
   return (
     <div
       style={{
-        backgroundImage: 'url("/moroccan-flower.png")',
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'auto',
-        backgroundPosition: 'center',
+        backgroundColor: '#FFF2CA', // Replaced background image with solid color
         minHeight: '100vh', // Ensures it spans the full height of the screen
         padding: '3rem',
       }}
@@ -18,7 +15,7 @@ function AboutUs() {
         sx={{
           backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: Adds a slight white background to the content
           padding: '3rem',
-          borderRadius: '8px', // Optional: Rounds the edges of the content box
+          borderRadius: '20px', // Optional: Rounds the edges of the content box
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Optional: Adds a shadow for better readability
         }}
       >

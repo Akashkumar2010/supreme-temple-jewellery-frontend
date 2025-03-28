@@ -24,8 +24,9 @@ function Footer() {
         bgcolor: '#f7f7f7',
         color: '#333',
         py: 6,
-        mt: 1, // Ensure it pushes to the bottom
-        position: 'relative', // Maintain proper stacking
+        width: '100%',
+        position: 'relative',
+        mt: 'auto',
       }}
     >
       <Container>
@@ -162,7 +163,7 @@ function Footer() {
           {/* Subscribe Section */}
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" gutterBottom>
-              Don’t miss out on a sale again.
+              Don&apos;t miss out on a sale again.
             </Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
               Subscribe to our newsletter and all the latest details.

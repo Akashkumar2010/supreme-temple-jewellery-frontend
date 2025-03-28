@@ -229,6 +229,14 @@ function Navbar() {
     [location.pathname]
   );
 
+  // Define the paths where the secondary navbar should be visible
+  const showSecondaryNavbar = [
+    '/',
+    '/products',
+    '/product',
+    '/categories',
+  ].some(path => location.pathname.startsWith(path));
+
   return (
     <>
       <AppBar
@@ -335,7 +343,7 @@ function Navbar() {
                 {user?.isAdmin && (
                   <Button
                     component={Link}
-                    to="/admin/dashboard"
+                    to="/admin"
                     aria-label="Admin Dashboard"
                     sx={COMMON_BUTTON_STYLES}
                   >
@@ -417,78 +425,79 @@ function Navbar() {
       {/* Toolbar placeholder with increased height */}
       <Toolbar sx={{ minHeight: { xs: '56px', sm: '64px' }, mb: 2 }} />
 
-      {/* Secondary Navbar */}
-      <Container
-        maxWidth="xl"
-        sx={{
-          position: 'relative',
-          zIndex: 1200,
-          mt: 2.5,
-          mb: -7,
-        }}
-      >
-        <Box
-          component="nav"
-          aria-label="Product Categories"
+      {showSecondaryNavbar && (
+        <Container
+          maxWidth="xl"
           sx={{
             position: 'relative',
-            background: 'transparent',
-            display: 'flex',
-            justifyContent: 'center',
-            gap: { xs: 1, sm: 1.5 },
-            py: { xs: 1, sm: 1.5 },
-            px: { xs: 1, sm: 2, md: 3 },
-            mx: { xs: 1, sm: 2, md: 3 },
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-            '&::-webkit-scrollbar': {
-              display: 'none',
-            },
+            zIndex: 1200,
+            mt: 2.5,
+            mb: -11.5,
           }}
         >
-          {SECONDARY_NAV_LINKS.map(link => (
-            <Button
-              key={link.title}
-              component={Link}
-              to={link.path}
-              aria-current={isActiveLink(link.path) ? 'page' : undefined}
-              sx={{
-                color: THEME_COLORS.pearl,
-                fontWeight: 700,
-                fontSize: { xs: '11px', sm: '12px', md: '13px' },
-                whiteSpace: 'nowrap',
-                px: { xs: 2, sm: 2.5 },
-                py: { xs: 0.75, sm: 1 },
-                minWidth: 'auto',
-                textTransform: 'none',
-                letterSpacing: '0.3px',
-                background: 'transparent',
-                border: `1px solid ${THEME_COLORS.pearl}`,
-                borderRadius: '20px',
-                '&:hover': {
-                  backgroundColor: `${THEME_COLORS.pearl}22`,
-                  color: THEME_COLORS.gold,
-                  transform: 'translateY(-1px)',
-                  boxShadow: `0 2px 8px ${THEME_COLORS.pearl}44`,
-                },
-                transition: 'all 0.2s ease',
-                ...(isActiveLink(link.path) && {
-                  color: THEME_COLORS.gold,
-                  backgroundColor: `${THEME_COLORS.pearl}22`,
-                  borderColor: THEME_COLORS.gold,
-                  '&:after': {
-                    display: 'none',
+          <Box
+            component="nav"
+            aria-label="Product Categories"
+            sx={{
+              position: 'relative',
+              background: 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              gap: { xs: 1, sm: 1.5 },
+              py: { xs: 1, sm: 1.5 },
+              px: { xs: 1, sm: 2, md: 3 },
+              mx: { xs: 1, sm: 2, md: 3 },
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              msOverflowStyle: 'none',
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': {
+                display: 'none',
+              },
+            }}
+          >
+            {SECONDARY_NAV_LINKS.map(link => (
+              <Button
+                key={link.title}
+                component={Link}
+                to={link.path}
+                aria-current={isActiveLink(link.path) ? 'page' : undefined}
+                sx={{
+                  color: THEME_COLORS.pearl,
+                  fontWeight: 700,
+                  fontSize: { xs: '11px', sm: '12px', md: '13px' },
+                  whiteSpace: 'nowrap',
+                  px: { xs: 2, sm: 2.5 },
+                  py: { xs: 0.75, sm: 1 },
+                  minWidth: 'auto',
+                  textTransform: 'none',
+                  letterSpacing: '0.3px',
+                  background: 'transparent',
+                  border: `1px solid ${THEME_COLORS.pearl}`,
+                  borderRadius: '20px',
+                  '&:hover': {
+                    backgroundColor: `${THEME_COLORS.pearl}22`,
+                    color: THEME_COLORS.gold,
+                    transform: 'translateY(-1px)',
+                    boxShadow: `0 2px 8px ${THEME_COLORS.pearl}44`,
                   },
-                }),
-              }}
-            >
-              {link.title}
-            </Button>
-          ))}
-        </Box>
-      </Container>
+                  transition: 'all 0.2s ease',
+                  ...(isActiveLink(link.path) && {
+                    color: THEME_COLORS.gold,
+                    backgroundColor: `${THEME_COLORS.pearl}22`,
+                    borderColor: THEME_COLORS.gold,
+                    '&:after': {
+                      display: 'none',
+                    },
+                  }),
+                }}
+              >
+                {link.title}
+              </Button>
+            ))}
+          </Box>
+        </Container>
+      )}
 
       {/* Mobile Drawer */}
       <Drawer

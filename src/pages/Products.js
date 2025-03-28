@@ -180,13 +180,11 @@ function Products() {
   return (
     <Box
       sx={{
-        backgroundImage: 'url("moroccan-flower.png")', // Replace with the actual path to the background image
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'auto',
-        backgroundPosition: 'center',
+        backgroundColor: '#FFF2CA',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        padding: '20px',
       }}
     >
       <Container sx={{ mt: 4 }}>
@@ -195,7 +193,9 @@ function Products() {
           sx={{
             textAlign: 'center',
             mb: 4,
+            mt: 6,
             fontWeight: 'bold',
+            color: '#FF4500',
             background: 'linear-gradient(90deg, #FF7F50, #FF6347, #FF4500)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -289,13 +289,13 @@ function Products() {
                 <Grid item key={product._id} xs={12} sm={6} md={4}>
                   <Card
                     sx={{
-                      background: 'linear-gradient(145deg, #FFFFFF, #FFFAFA)',
+                      background: '#FFF',
                       borderRadius: '15px',
                       overflow: 'hidden',
                       boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.15)',
                       transition: 'transform 0.3s, box-shadow 0.3s',
                       '&:hover': {
-                        transform: 'scale(1.05)',
+                        transform: 'scale(1.03)',
                         boxShadow: '0px 15px 25px rgba(0, 0, 0, 0.3)',
                       },
                     }}

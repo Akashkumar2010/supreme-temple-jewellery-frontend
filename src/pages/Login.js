@@ -56,19 +56,34 @@ function Login() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 0,
+        backgroundColor: '#FAF9F6',
       }}
     >
-      <Paper elevation={3} sx={{ padding: 4, maxWidth: 400, width: '100%' }}>
-        <Typography variant="h4" gutterBottom align="center">
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 4,
+          maxWidth: 400,
+          width: '100%',
+          borderRadius: '12px',
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          align="center"
+          sx={{ fontWeight: 'bold', color: '#C99C33' }}
+        >
           Login
         </Typography>
         {error && (
-          <Typography color="error" align="center">
+          <Typography color="error" align="center" sx={{ marginBottom: 2 }}>
             {error}
           </Typography>
         )}
         {success && (
-          <Typography color="primary" align="center">
+          <Typography color="primary" align="center" sx={{ marginBottom: 2 }}>
             {success}
           </Typography>
         )}
@@ -88,6 +103,19 @@ function Login() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#C99C33',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#B3882F',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#C99C33',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -96,8 +124,29 @@ function Login() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#C99C33',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#B3882F',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#C99C33',
+                },
+              },
+            }}
           />
-          <Button variant="contained" type="submit" fullWidth>
+          <Button
+            variant="contained"
+            type="submit"
+            fullWidth
+            sx={{
+              backgroundColor: '#C99C33',
+              '&:hover': { backgroundColor: '#B3882F' },
+            }}
+          >
             Login
           </Button>
           <Typography variant="body2" align="center">
